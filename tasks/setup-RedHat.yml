@@ -9,3 +9,10 @@
     src: beats.repo.j2
     dest: /etc/yum.repos.d/beats.repo
     mode: 0644
+  when: filebeat_package_url == ''
+
+- name: Install package from remote URL.
+  ansible.builtin.yum:
+    name: "{{ filebeat_package_url }}"
+    state: "{{ filebeat_package_state }}"
+  when: filebeat_package_url != ''

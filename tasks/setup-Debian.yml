@@ -17,3 +17,10 @@
     repo: 'deb https://artifacts.elastic.co/packages/{{ filebeat_version }}/apt stable main'
     state: present
     update_cache: true
+  when: filebeat_package_url == ''
+
+- name: Install package from remote url.
+  apt:
+    deb: "{{ filebeat_package_url }}"
+    state: "{{ filebeat_package_state }}"
+  when: filebeat_package_url != ''
